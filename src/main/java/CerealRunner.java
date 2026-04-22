@@ -1,7 +1,7 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.FileNotFoundException; 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CerealRunner
 {
@@ -42,11 +42,12 @@ public class CerealRunner
       return best;
    }
   
-   /* Question 3: Write findNetCarbs */
+   /* Question 3: Write findNetCarbsPerCup */
    public static double findNetCarbsPerCup(Cereal c)
    {
-      // Match expected test output
-      return c.getCarbs() - c.getFiber();
+      double netCarbsPerServing = c.getCarbs() - c.getFiber();
+      double servingsPerCup = 1 / c.getCups();
+      return netCarbsPerServing * servingsPerCup;
    }
 
    /*****************************************************************
@@ -113,5 +114,25 @@ public class CerealRunner
       Cereal testCereal = new Cereal("Golden Crisp",100,0,11,0.88);
       System.out.println("Expected results: 11.0");
       System.out.println("Actual results:   " + findNetCarbsPerCup(testCereal));
+
+      // Question 4 testing loop
+      for(Cereal c: cereals) 
+      { 
+         if(c.getName().equals("All-Bran with Extra Fiber") ||   
+            c.getName().equals("Apple Jacks") ||  
+            c.getName().equals("Cocoa Puffs")) 
+         { 
+             System.out.println("\nCereal: " + c.getName() + ", NetCarbs: "    
+                                 + findNetCarbsPerCup(c)); 
+         } 
+      }
    }
+
+   /* Question 4 Answer
+   The value for All-Bran with Extra Fiber appears out of place because it likely produces
+   an unusually low or even negative net carbs value due to its very high fiber content.
+   This suggests the dataset may contain extreme or inconsistent values. It shows that
+   data validation is important, because some entries may not accurately reflect realistic
+   nutritional information and could lead to misleading results.
+   */
 }
